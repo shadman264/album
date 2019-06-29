@@ -1,10 +1,16 @@
 import React from 'react';
-import './App.css';
 import Album from './module/Album/Album.container';
+import Navbar from './module/Navbar/Navbar.component';
+
 
 function App() {
   return (
-    <Album/>
+    <div>
+      <Navbar/>
+      <div className="wrapper">
+        <Album/>
+      </div>
+    </div>
   );
 }
 

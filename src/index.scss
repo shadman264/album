@@ -1,5 +1,7 @@
+@import './app';
 @import './module/Album/album.style';
-@import './variables.scss';
+@import './variables';
+@import './module/Navbar/navbar';
 
 body {
   margin: 0;
@@ -13,4 +15,8 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.wrapper{
+  margin: 1% 3% 1% 3%;
 }

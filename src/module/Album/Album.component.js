@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import data from './Album.mock';
-import {Flex, Box} from 'reflexbox';
+import {Flex} from 'reflexbox';
 
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+
+import _startCase from 'lodash/startCase';
+import _toLower from 'lodash/toLower';
 
 export default class Album extends Component {
 	constructor() {
@@ -16,7 +17,7 @@ export default class Album extends Component {
     this.handleThumbnailClick = this.handleThumbnailClick.bind(this);
 		this.state = {
 			albumData: data,
-			albumTable: []
+			albumList: []
 		}
   }
   
@@ -26,16 +27,31 @@ export default class Album extends Component {
   }
 
 	componentDidMount() {
-		let albumTable = [];
-    let albumRow = [];
+		let albumList = [];
+		let albumRow = [];
+
 		data.map((album, index) => {
 			albumRow.push(
-				<Box>
-					<img src={album.thumbnailUrl} alt="thumbnail" onClick={() => this.handleThumbnailClick(album)}/>
-				</Box>
+				<Card className="album card">
+					<CardActionArea>
+						<CardMedia
+							className="album media"
+							image={album.thumbnailUrl}
+							title={album.title}
+						/>
+						<CardContent>
+							<Typography gutterBottom variant="h5" component="h2">
+								{`Album ${(index+1)}`}
+							</Typography>
+							<Typography variant="body2" color="textSecondary" component="p">
+								{_startCase(_toLower(album.title))}
+							</Typography>
+						</CardContent>
+					</CardActionArea>
+				</Card>
 			)
 			if((index + 1) % 3 === 0) {
-				albumTable.push(
+				albumList.push(
 					<Flex w={1} pt={2} justify='space-evenly'>
 						{albumRow.map(row => {
 							return row;
@@ -47,26 +63,17 @@ export default class Album extends Component {
 			return null;
 		});
 		this.setState({
-			albumTable
+			albumList
 		})
 	}
 
 	render() {
-		// const albumThumbnails = data.map(album => {
-		// 	return (
-		// 		<img src={album.thumbnailUrl} alt="thumbnail"/>
-		// 	)
-		// })
-		
-		// return(
-		// 	<div>
-		// 		{this.state.albumTable}
-		// 	</div>			
-		// )
-	// const classes = useStyles;
 
-  return (
-    <h1 className="album media">hellow</h1>
-  );
+		return (
+			<div className='album-wrapper'>
+
+			 	{this.state.albumList}
+		 	</div>
+		);
 	}
 }
