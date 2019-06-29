@@ -14,23 +14,39 @@ import _toLower from 'lodash/toLower';
 export default class Album extends Component {
 	constructor() {
     super();
-    this.handleThumbnailClick = this.handleThumbnailClick.bind(this);
+		this.handleThumbnailClick = this.handleThumbnailClick.bind(this);
+		this.handleScroll = this.handleScroll.bind(this);
 		this.state = {
 			albumData: data,
-			albumList: []
+			albumList: [],
+			startIndex: 0
 		}
   }
-  
-  handleThumbnailClick(album) {
-    console.log('i came here');
-    console.log(album);
-  }
-
+	
+	// This method is fetching data after component's initial mount
 	componentDidMount() {
-		let albumList = [];
-		let albumRow = [];
+		window.addEventListener('scroll', this.handleScroll);
+		const albumList = this.fetchAlbums(this.state.startIndex);
+		this.setState({
+			albumList
+		});
+	}
 
-		data.map((album, index) => {
+	// This method will remove the scroll event listener before component unmount
+	componentWillUnmount() {
+		document.removeEventListener('scroll', this.handleScroll);
+	}
+
+	// This method is responsible for fetching album data
+	// parameters: startIndex = From where it will start fetching
+	fetchAlbums(startIndex) {
+		let {albumList} = this.state;
+		let albumRow = [];
+		const numberOfRowFetch = 90;
+		const numberOfAlbumsEachRow = 3;
+		const endIndex = startIndex + Math.min(numberOfRowFetch, data.length - startIndex);
+		for(let i=startIndex; i<endIndex; i++) {
+			const album = data[i];
 			albumRow.push(
 				<Card className="album card">
 					<CardActionArea>
@@ -41,7 +57,7 @@ export default class Album extends Component {
 						/>
 						<CardContent>
 							<Typography gutterBottom variant="h5" component="h2">
-								{`Album ${(index+1)}`}
+								{`Album ${(i+1)}`}
 							</Typography>
 							<Typography variant="body2" color="textSecondary" component="p">
 								{_startCase(_toLower(album.title))}
@@ -50,7 +66,7 @@ export default class Album extends Component {
 					</CardActionArea>
 				</Card>
 			)
-			if((index + 1) % 3 === 0) {
+			if((i + 1) % numberOfAlbumsEachRow === 0) {
 				albumList.push(
 					<Flex w={1} pt={2} justify='space-evenly'>
 						{albumRow.map(row => {
@@ -60,19 +76,52 @@ export default class Album extends Component {
 				);
 				albumRow = [];
 			}
-			return null;
-		});
+		}
+		// to push the remianing elements from albumList into albumRow
+		if(albumRow.length > 0) {
+			albumList.push(
+				<Flex w={1} pt={2} justify='space-evenly'>
+					{albumRow.map(row => {
+						return row;
+					})}
+				</Flex>
+			);
+		}
 		this.setState({
-			albumList
-		})
+			startIndex: endIndex
+		});
+		return albumList;
+	}
+
+	// This method is fetching more row if user is at the bottom of the page
+	// by handning scrolling scrolling event
+	handleScroll(e) {
+		const wrappedElement = document.getElementById('album-container');
+		if (this.isBottom(wrappedElement)) {
+			const albumList = this.fetchAlbums(this.state.startIndex);
+			this.setState({
+				albumList
+			});
+		}
+	}
+
+	// This Method is to determine if user hit the bottom of the page by scrolling
+	isBottom(el) {
+		// This method is Returning true before 200px of hitting bottom
+		// so it can prefetch data without impacting user experience
+		return el.getBoundingClientRect().bottom - 200 <= window.innerHeight;
+	}
+
+	// This method handles album on click event
+  handleThumbnailClick(album) {
+    console.log('i came here');
+    console.log(album);
 	}
 
 	render() {
-
 		return (
-			<div className='album-wrapper'>
-
-			 	{this.state.albumList}
+			<div id="album-container" onScroll={this.handleScroll}>
+				{this.state.albumList}
 		 	</div>
 		);
 	}
