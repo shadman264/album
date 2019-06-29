@@ -14,7 +14,7 @@ import _toLower from 'lodash/toLower';
 export default class Album extends Component {
 	constructor() {
     super();
-		this.handleThumbnailClick = this.handleThumbnailClick.bind(this);
+		this.handleAlbumClick = this.handleAlbumClick.bind(this);
 		this.handleScroll = this.handleScroll.bind(this);
 		this.state = {
 			albumData: data,
@@ -48,7 +48,7 @@ export default class Album extends Component {
 		for(let i=startIndex; i<endIndex; i++) {
 			const album = data[i];
 			albumRow.push(
-				<Card className="album card">
+				<Card key={i} className="album card" onClick={() => this.handleAlbumClick(album)}>
 					<CardActionArea>
 						<CardMedia
 							className="album media"
@@ -68,7 +68,7 @@ export default class Album extends Component {
 			)
 			if((i + 1) % numberOfAlbumsEachRow === 0) {
 				albumList.push(
-					<Flex w={1} pt={2} justify='space-evenly'>
+					<Flex key={(i + 1) / numberOfAlbumsEachRow} w={1} pt={2} justify='space-evenly'>
 						{albumRow.map(row => {
 							return row;
 						})}
@@ -80,7 +80,7 @@ export default class Album extends Component {
 		// to push the remianing elements from albumList into albumRow
 		if(albumRow.length > 0) {
 			albumList.push(
-				<Flex w={1} pt={2} justify='space-evenly'>
+				<Flex key={endIndex / numberOfAlbumsEachRow} w={1} pt={2} justify='space-evenly'>
 					{albumRow.map(row => {
 						return row;
 					})}
@@ -113,7 +113,7 @@ export default class Album extends Component {
 	}
 
 	// This method handles album on click event
-  handleThumbnailClick(album) {
+  handleAlbumClick(album) {
     console.log('i came here');
     console.log(album);
 	}
