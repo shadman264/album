@@ -43,12 +43,16 @@ export default class Album extends Component {
 		let {albumList} = this.state;
 		let albumRow = [];
 		const numberOfRowFetch = 90;
-		const numberOfAlbumsEachRow = 3;
+		const numberOfAlbumsEachRow = 5;
 		const endIndex = startIndex + Math.min(numberOfRowFetch, data.length - startIndex);
 		for(let i=startIndex; i<endIndex; i++) {
 			const album = data[i];
 			albumRow.push(
-				<Card key={i} className="album card" onClick={() => this.handleAlbumClick(album)}>
+				<Card 
+					key={i}
+					className="album card"
+					onClick={() => this.handleAlbumClick(album)}
+				>
 					<CardActionArea>
 						<CardMedia
 							className="album media"
@@ -68,7 +72,12 @@ export default class Album extends Component {
 			)
 			if((i + 1) % numberOfAlbumsEachRow === 0) {
 				albumList.push(
-					<Flex key={(i + 1) / numberOfAlbumsEachRow} w={1} pt={2} justify='space-evenly'>
+					<Flex
+						key={(i + 1) / numberOfAlbumsEachRow}
+						w={1}
+						pt={2}
+						justify='space-evenly'
+					>
 						{albumRow.map(row => {
 							return row;
 						})}
@@ -80,7 +89,12 @@ export default class Album extends Component {
 		// to push the remianing elements from albumList into albumRow
 		if(albumRow.length > 0) {
 			albumList.push(
-				<Flex key={endIndex / numberOfAlbumsEachRow} w={1} pt={2} justify='space-evenly'>
+				<Flex
+					key={endIndex / numberOfAlbumsEachRow}
+					w={1}
+					pt={2}
+					justify='space-evenly'
+				>
 					{albumRow.map(row => {
 						return row;
 					})}
