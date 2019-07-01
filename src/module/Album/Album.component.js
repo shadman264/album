@@ -19,7 +19,7 @@ export default class Album extends Component {
 		this.state = {
 			albumData: data,
 			albumList: [],
-			startIndex: 0
+			startIndex: 0,
 		}
   }
 	
