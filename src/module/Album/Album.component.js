@@ -8,10 +8,14 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
+import Modal from '@material-ui/core/Modal';
+
 import _startCase from 'lodash/startCase';
 import _toLower from 'lodash/toLower';
 
 import {ALBUM_DATA_URL} from './Album.constants';
+
+import AlbumDetails from './AlbumDetails/AlbumDetails.component';
 
 export default class Album extends Component {
 	constructor() {
@@ -21,7 +25,9 @@ export default class Album extends Component {
 		this.state = {
 			albumData: [],
 			albumList: [],
-			startIndex: 0
+			startIndex: 0,
+			activeAlbum: null,
+			isAlbumActive: false
 		}
   }
 	
@@ -148,17 +154,24 @@ export default class Album extends Component {
 
 	// This method handles album on click event
   handleAlbumClick(album) {
-    console.log('i came here');
-    console.log(album);
+		const activeAlbumModal = <AlbumDetails album={album} />;
+		this.setState({
+			activeAlbum: activeAlbumModal,
+			isAlbumActive: true
+		})
 	}
 
 	render() {
-		// console.log('from render');
+		console.log('from render');
 		// console.log(this.props.albumData);
-		// console.log(this.state.albumList);
+		console.log(this.state.activeAlbum);
+		console.log(this.state.isAlbumActive);
+		let test = this.state.isAlbumActive? this.state.activeAlbum : this.state.albumList;
+		console.log(test);
+
 		return (
 			<div id="album-container" onScroll={this.handleScroll}>
-				{this.state.albumList}
+				{test}
 		 	</div>
 		);
 	}
