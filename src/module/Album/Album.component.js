@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import data from './Album.mock';
+// import data from './Album.mock';
 import {Flex} from 'reflexbox';
 
 import Card from '@material-ui/core/Card';
@@ -19,7 +19,7 @@ export default class Album extends Component {
 		this.handleAlbumClick = this.handleAlbumClick.bind(this);
 		this.handleScroll = this.handleScroll.bind(this);
 		this.state = {
-			albumData: data,
+			albumData: [],
 			albumList: [],
 			startIndex: 0
 		}
@@ -28,11 +28,28 @@ export default class Album extends Component {
 	// This method is fetching data after component's initial mount
 	componentDidMount() {
 		window.addEventListener('scroll', this.handleScroll);
-		const albumList = this.fetchAlbums(this.state.startIndex);
+		// const albumList = this.fetchAlbums(this.state.startIndex);
 		this.props.getAlbumData(ALBUM_DATA_URL);
-		this.setState({
-			albumList
-		});
+		// this.setState({
+		// 	albumList
+		// });
+	}
+
+	static getDerivedStateFromProps(nextProps, prevState) {
+		if(nextProps.albumData !== prevState.albumData) {
+			return { albumData: nextProps.albumData};
+		}
+		return null; 
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if(prevProps.albumData !== this.props.albumData){
+			const albumList = this.fetchAlbums(this.state.startIndex);
+			this.setState({
+				albumList
+			});
+	
+		}
 	}
 
 	// This method will remove the scroll event listener before component unmount
@@ -47,9 +64,9 @@ export default class Album extends Component {
 		let albumRow = [];
 		const numberOfRowFetch = 90;
 		const numberOfAlbumsEachRow = 5;
-		const endIndex = startIndex + Math.min(numberOfRowFetch, data.length - startIndex);
+		const endIndex = startIndex + Math.min(numberOfRowFetch, this.state.albumData.length - startIndex);
 		for(let i=startIndex; i<endIndex; i++) {
-			const album = data[i];
+			const album = this.state.albumData[i];
 			albumRow.push(
 				<Card 
 					key={i}
@@ -136,6 +153,9 @@ export default class Album extends Component {
 	}
 
 	render() {
+		// console.log('from render');
+		// console.log(this.props.albumData);
+		// console.log(this.state.albumList);
 		return (
 			<div id="album-container" onScroll={this.handleScroll}>
 				{this.state.albumList}

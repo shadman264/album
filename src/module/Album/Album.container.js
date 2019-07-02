@@ -6,9 +6,8 @@ import {bindActionCreators} from 'redux';
 import _has from 'lodash/has';
 
 function mapStateToProps(state) {
-    console.log(state);
     return {
-        albumData: _has(state, 'album') ? state.album : []
+        albumData: _has(state, 'album.data') ? state.album.data : []
     }
 }
 

@@ -9,7 +9,7 @@ const albumReducer = (state = initialState, action) => {
 			case albumConstants.GET_ALBUM_DATA_REQUEST_SUCCESS:
 				return {
 					...state,
-					...action.payload
+					data: [...action.payload]
 				}
 			case albumConstants.GET_ALBUM_DATA_REQUEST_FAILURE:
 				return state;
