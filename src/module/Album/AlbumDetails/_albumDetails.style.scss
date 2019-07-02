@@ -1,11 +1,15 @@
 .album-details{
-  margin: 5%;
-  height: 100%;
   &.card{
+    margin: 5%;
     width: 90%;
   }
   &.media{
-    height: 50%;
-    
+    height: -moz-available;          /* WebKit-based browsers will ignore this. */
+    height: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+    height: fill-available;  
+    margin-bottom: 2%; 
+  }
+  &.typography{
+    padding: 2%;  
   }
 }

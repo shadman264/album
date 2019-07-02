@@ -7,15 +7,9 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-
-import Modal from '@material-ui/core/Modal';
-
-import _startCase from 'lodash/startCase';
-import _toLower from 'lodash/toLower';
+import Grow from '@material-ui/core/Grow';
 
 import {ALBUM_DATA_URL} from './Album.constants';
-
-import AlbumDetails from './AlbumDetails/AlbumDetails.component';
 
 export default class Album extends Component {
 	constructor() {
@@ -68,40 +62,39 @@ export default class Album extends Component {
 	fetchAlbums(startIndex) {
 		let {albumList} = this.state;
 		let albumRow = [];
-		const numberOfRowFetch = 90;
-		const numberOfAlbumsEachRow = 5;
+		const numberOfRowFetch = 105;
+		const numberOfAlbumsEachRow = 7;
 		const endIndex = startIndex + Math.min(numberOfRowFetch, this.state.albumData.length - startIndex);
 		for(let i=startIndex; i<endIndex; i++) {
 			const album = this.state.albumData[i];
 			albumRow.push(
-				<Card 
-					key={i}
-					className="album card"
-					onClick={() => this.handleAlbumClick(album)}
-				>
-					<CardActionArea>
-						<CardMedia
-							className="album media"
-							image={album.thumbnailUrl}
-							title={album.title}
-						/>
-						<CardContent>
-							<Typography gutterBottom variant="h5" component="h2">
-								{`Album ${(i+1)}`}
-							</Typography>
-							<Typography variant="body2" color="textSecondary" component="p">
-								{_startCase(_toLower(album.title))}
-							</Typography>
-						</CardContent>
-					</CardActionArea>
-				</Card>
+				<Grow in={true}>
+					<Card 
+						key={album.id}
+						className="album card"
+						onClick={() => this.handleAlbumClick(album)}
+					>
+						<CardActionArea>
+							<CardMedia
+								className="album media"
+								image={album.thumbnailUrl}
+								title={album.title}
+							/>
+							<CardContent>
+								<Typography gutterBottom variant="h5" component="h2">
+									{`Album ${album.albumId}`}
+								</Typography>
+							</CardContent>
+						</CardActionArea>
+					</Card>
+				</Grow>
 			)
 			if((i + 1) % numberOfAlbumsEachRow === 0) {
 				albumList.push(
 					<Flex
 						key={(i + 1) / numberOfAlbumsEachRow}
 						w={1}
-						pt={2}
+						pt={3}
 						justify='space-evenly'
 					>
 						{albumRow.map(row => {

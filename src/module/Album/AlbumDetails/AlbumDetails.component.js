@@ -10,6 +10,10 @@ import _toLower from 'lodash/toLower';
 
 class AlbumDetails extends Component{
 
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+
   render() {
     if(this.props.activeAlbum) {
       return(
@@ -22,11 +26,11 @@ class AlbumDetails extends Component{
               image={this.props.activeAlbum.url}
               title={this.props.activeAlbum.title}
             />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                {`Album ${(this.props.activeAlbum.id)}`}
+            <CardContent className="album-details typography">
+              <Typography gutterBottom variant="h4" component="h2">
+                {`Album ${(this.props.activeAlbum.albumId)}`}
               </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
+              <Typography variant="body1" color="textSecondary" component="p">
                 {_startCase(_toLower(this.props.activeAlbum.title))}
               </Typography>
             </CardContent>

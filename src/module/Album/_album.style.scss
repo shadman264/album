@@ -2,9 +2,15 @@
 .album{
   &.card{
     width: 15%;
+    max-width: 150px;
+    &:hover{
+      transform: scale(1.15) !important; /* This is to override MU default style */
+    }
   }
   &.media{
-    height: 100px;
-    
+    height: -moz-available;
+    height: -webkit-fill-available;
+    height: fill-available;
+    max-height: 150px;
   }
 }
