@@ -14,11 +14,11 @@ class AlbumDetails extends Component{
     if(this.props.activeAlbum) {
       return(
         <Card 
-          className="album card"
+          className="album-details card"
         >
           <CardActionArea>
             <CardMedia
-              className="album media"
+              className="album-details media"
               image={this.props.activeAlbum.thumbnailUrl}
               title={this.props.activeAlbum.title}
             />

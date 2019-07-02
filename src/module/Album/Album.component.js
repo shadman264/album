@@ -159,12 +159,12 @@ export default class Album extends Component {
 	}
 
 	render() {
-		console.log('from render');
-		// console.log(this.props.albumData);
-		console.log(this.state.activeAlbum);
-		console.log(this.state.isAlbumActive);
-		let test = this.state.isAlbumActive? this.state.activeAlbum : this.state.albumList;
-		console.log(test);
+		// console.log('from render');
+		// // console.log(this.props.albumData);
+		// console.log(this.state.activeAlbum);
+		// console.log(this.state.isAlbumActive);
+		// let test = this.state.isAlbumActive? this.state.activeAlbum : this.state.albumList;
+		// console.log(test);
 
 		return (
 			<div id="album-container" onScroll={this.handleScroll}>
