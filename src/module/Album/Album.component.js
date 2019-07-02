@@ -149,7 +149,10 @@ export default class Album extends Component {
 	isBottom(el) {
 		// This method is Returning true before 200px of hitting bottom
 		// so it can prefetch data without impacting user experience
-		return el.getBoundingClientRect().bottom - 200 <= window.innerHeight;
+		if(el) {
+			return el.getBoundingClientRect().bottom - 200 <= window.innerHeight;
+		}
+		return false;
 	}
 
 	// This method handles album on click event

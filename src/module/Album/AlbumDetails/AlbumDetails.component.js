@@ -19,7 +19,7 @@ class AlbumDetails extends Component{
           <CardActionArea>
             <CardMedia
               className="album-details media"
-              image={this.props.activeAlbum.thumbnailUrl}
+              image={this.props.activeAlbum.url}
               title={this.props.activeAlbum.title}
             />
             <CardContent>

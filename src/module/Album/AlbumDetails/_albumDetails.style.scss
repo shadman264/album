@@ -1,10 +1,11 @@
 .album-details{
   margin: 5%;
+  height: 100%;
   &.card{
     width: 90%;
   }
   &.media{
-    height: 200px;
+    height: 50%;
     
   }
 }
