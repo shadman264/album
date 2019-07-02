@@ -1,16 +1,21 @@
 import React from 'react';
+
 import Album from './module/Album/Album.container';
 import Navbar from './module/Navbar/Navbar.component';
+import AlbumDetails from './module/Album/AlbumDetails/AlbumDetails.container';
+
+import {BrowserRouter, Route} from 'react-router-dom';
 
 
 function App() {
   return (
-    <div>
-      <Navbar/>
-      <div className="wrapper">
-        <Album/>
+    <BrowserRouter>
+      <div>
+        <Navbar/>
+        <Route exact path='/' component={Album} />
+        <Route path='/details' component={AlbumDetails} />
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
 

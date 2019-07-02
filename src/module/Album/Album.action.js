@@ -23,3 +23,10 @@ export const getAlbumData = url => {
       })
   }
 };
+
+export const getAlbumDetails = album => {
+  return{
+    type: albumConstants.GET_ALBUM_DETAILS,
+    payload: album
+  }
+}

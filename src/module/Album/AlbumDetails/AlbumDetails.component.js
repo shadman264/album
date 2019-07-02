@@ -11,27 +11,30 @@ import _toLower from 'lodash/toLower';
 class AlbumDetails extends Component{
 
   render() {
-    return(
-      <Card 
-        className="album card"
-      >
-        <CardActionArea>
-          <CardMedia
-            className="album media"
-            image={this.props.album.thumbnailUrl}
-            title={this.props.album.title}
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {`Album ${(this.props.album.id)}`}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {_startCase(_toLower(this.props.album.title))}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    )
+    if(this.props.activeAlbum) {
+      return(
+        <Card 
+          className="album card"
+        >
+          <CardActionArea>
+            <CardMedia
+              className="album media"
+              image={this.props.activeAlbum.thumbnailUrl}
+              title={this.props.activeAlbum.title}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                {`Album ${(this.props.activeAlbum.id)}`}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {_startCase(_toLower(this.props.activeAlbum.title))}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      );
+    }
+    return null;
   }
 }
 

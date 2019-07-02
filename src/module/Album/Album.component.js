@@ -154,11 +154,8 @@ export default class Album extends Component {
 
 	// This method handles album on click event
   handleAlbumClick(album) {
-		const activeAlbumModal = <AlbumDetails album={album} />;
-		this.setState({
-			activeAlbum: activeAlbumModal,
-			isAlbumActive: true
-		})
+		this.props.getAlbumDetails(album);
+		this.props.history.push("/details")
 	}
 
 	render() {
@@ -171,7 +168,7 @@ export default class Album extends Component {
 
 		return (
 			<div id="album-container" onScroll={this.handleScroll}>
-				{test}
+				{this.state.albumList}
 		 	</div>
 		);
 	}

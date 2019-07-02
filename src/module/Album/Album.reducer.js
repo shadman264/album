@@ -13,6 +13,11 @@ const albumReducer = (state = initialState, action) => {
 				}
 			case albumConstants.GET_ALBUM_DATA_REQUEST_FAILURE:
 				return state;
+			case albumConstants.GET_ALBUM_DETAILS:
+				return {
+					...state,
+					activeAlbum: action.payload
+				}
 			default:
 				return state;
 		}
