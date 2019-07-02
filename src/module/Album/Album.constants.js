@@ -1,1 +1,5 @@
-export const GET_ALBUM_DATA = 'GET_ALBUM_DATA';
+export const ALBUM_DATA_URL = 'https://jsonplaceholder.typicode.com/photos';
+
+export const GET_ALBUM_DATA_REQUEST = 'GET_ALBUM_DATA_REQUEST';
+export const GET_ALBUM_DATA_REQUEST_SUCCESS = 'GET_ALBUM_DATA_REQUEST_SUCCESS';
+export const GET_ALBUM_DATA_REQUEST_FAILURE = 'GET_ALBUM_DATA_REQUEST_FAILURE';

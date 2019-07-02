@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import _startCase from 'lodash/startCase';
 import _toLower from 'lodash/toLower';
 
+import {ALBUM_DATA_URL} from './Album.constants';
+
 export default class Album extends Component {
 	constructor() {
     super();
@@ -19,7 +21,7 @@ export default class Album extends Component {
 		this.state = {
 			albumData: data,
 			albumList: [],
-			startIndex: 0,
+			startIndex: 0
 		}
   }
 	
@@ -27,6 +29,7 @@ export default class Album extends Component {
 	componentDidMount() {
 		window.addEventListener('scroll', this.handleScroll);
 		const albumList = this.fetchAlbums(this.state.startIndex);
+		this.props.getAlbumData(ALBUM_DATA_URL);
 		this.setState({
 			albumList
 		});
