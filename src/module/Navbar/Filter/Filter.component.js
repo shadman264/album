@@ -20,7 +20,7 @@ class Filter extends Component{
       <div>
         <Grid container spacing={1} alignItems="flex-end">
           <Grid item>
-            <TextField id="navbar-filter" onChange={this.handleFieldChange}/>
+            <TextField id="navbar-filter" onChange={this.handleFieldChange} placeholder="Search"/>
             <SearchIcon />
           </Grid>
         </Grid>

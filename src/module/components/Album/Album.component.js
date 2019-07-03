@@ -172,10 +172,6 @@ export default class Album extends Component {
 	}
  
 	render() {
-		// console.log('from render');
-		// console.log(this.state.albumData);
-		// console.log(this.state.filterAlbumTitle);
-		// console.log(this.state.albumList);
 
 		return (
 			<div id="album-container" onScroll={this.handleScroll}>
