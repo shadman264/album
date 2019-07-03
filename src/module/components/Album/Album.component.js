@@ -156,12 +156,6 @@ export default class Album extends Component {
 		this.props.getAlbumDetails(album);
 		this.props.history.push("/details")
 	}
-
-	handleFilter(filterTitle, albumDataUnfilteredList) {
-		return albumDataUnfilteredList.filter(album => {
-			return album.title.toLowerCase().includes(filterTitle.toLowerCase())
-		});
-	}
  
 	render() {
 		console.log('from render');

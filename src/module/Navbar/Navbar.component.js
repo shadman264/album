@@ -9,6 +9,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 
+import Filter from './Filter/Filter.container';
+
 class Navbar extends Component{
   render() {
     return(
@@ -20,26 +22,7 @@ class Navbar extends Component{
           <Typography variant="h6" className="navbar-left">
             Albums
           </Typography>
-          <div>
-            <Grid container spacing={1} alignItems="flex-end">
-              <Grid item>
-                <TextField id="navbar-filter" />
-              </Grid>
-              <Grid item>
-                <SearchIcon />
-              </Grid>
-            </Grid>
-          </div>
-          {/* <TextField
-            id="standard-search"
-            label="Search"
-            type="search"
-            className="navbar-search"
-            margin="normal"
-          />
-          <IconButton edge="start" color="inherit" aria-label="Search">
-            <SearchIcon />
-          </IconButton> */}
+          <Filter/>
         </Toolbar>    
       </AppBar>
     )
