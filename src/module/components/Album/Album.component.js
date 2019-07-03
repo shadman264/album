@@ -37,7 +37,10 @@ export default class Album extends Component {
 
 	static getDerivedStateFromProps(nextProps, prevState) {
 		if(nextProps.albumData !== prevState.albumData) {
-			return { albumData: nextProps.albumData};
+			const filteredAlbumData = nextProps.albumData.filter(album => {
+				return album.title.toLowerCase().includes('nisi'.toLowerCase())
+			});
+			return { albumData: filteredAlbumData};
 		}
 		return null; 
 	}
@@ -62,9 +65,9 @@ export default class Album extends Component {
 	fetchAlbums(startIndex) {
 		let {albumList} = this.state;
 		let albumRow = [];
-		const numberOfRowFetch = 105;
-		const numberOfAlbumsEachRow = 7;
-		const endIndex = startIndex + Math.min(numberOfRowFetch, this.state.albumData.length - startIndex);
+		const numberOfAlbumsFetch = 30;
+		const numberOfAlbumsEachRow = 10;
+		const endIndex = startIndex + Math.min(numberOfAlbumsFetch, this.state.albumData.length - startIndex);
 		for(let i=startIndex; i<endIndex; i++) {
 			const album = this.state.albumData[i];
 			albumRow.push(
@@ -82,7 +85,7 @@ export default class Album extends Component {
 							/>
 							<CardContent>
 								<Typography gutterBottom variant="h5" component="h2">
-									{`Album ${album.albumId}`}
+									{`Album ${album.id}`}
 								</Typography>
 							</CardContent>
 						</CardActionArea>
@@ -154,9 +157,16 @@ export default class Album extends Component {
 		this.props.history.push("/details")
 	}
 
+	handleFilter(filterTitle, albumDataUnfilteredList) {
+		return albumDataUnfilteredList.filter(album => {
+			return album.title.toLowerCase().includes(filterTitle.toLowerCase())
+		});
+	}
+ 
 	render() {
-		// console.log('from render');
-		// // console.log(this.props.albumData);
+		console.log('from render');
+		console.log(this.state.albumData);
+		console.log(this.state.albumList);
 		// console.log(this.state.activeAlbum);
 		// console.log(this.state.isAlbumActive);
 		// let test = this.state.isAlbumActive? this.state.activeAlbum : this.state.albumList;
