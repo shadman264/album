@@ -18,35 +18,50 @@ export default class Album extends Component {
 		this.handleScroll = this.handleScroll.bind(this);
 		this.state = {
 			albumData: [],
+			data: [],
 			albumList: [],
 			startIndex: 0,
 			activeAlbum: null,
-			isAlbumActive: false
+			filterAlbumTitle: ''
 		}
   }
 	
 	// This method is fetching data after component's initial mount
 	componentDidMount() {
 		window.addEventListener('scroll', this.handleScroll);
-		// const albumList = this.fetchAlbums(this.state.startIndex);
 		this.props.getAlbumData(ALBUM_DATA_URL);
-		// this.setState({
-		// 	albumList
-		// });
 	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
-		if(nextProps.albumData !== prevState.albumData) {
+
+		if(nextProps.albumData.join("") !== prevState.data.join("")) {
+			console.log('data changed');
 			const filteredAlbumData = nextProps.albumData.filter(album => {
-				return album.title.toLowerCase().includes('nisi'.toLowerCase())
+				return album.title.toLowerCase().includes(prevState.filterAlbumTitle.toLowerCase())
 			});
-			return { albumData: filteredAlbumData};
+			return { 
+				albumData: filteredAlbumData,
+				data: nextProps.albumData,
+				albumList: [],
+				startIndex: 0
+			};
+		} else if(nextProps.filterAlbumTitle !== prevState.filterAlbumTitle) {
+			const filteredAlbumData = prevState.data.filter(album => {
+				return album.title.toLowerCase().includes(nextProps.filterAlbumTitle.toLowerCase())
+			});
+			return { 
+				albumData: filteredAlbumData,
+				filterAlbumTitle: nextProps.filterAlbumTitle,
+				albumList: [],
+				startIndex: 0
+			};
 		}
 		return null; 
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if(prevProps.albumData !== this.props.albumData){
+		if(prevProps.albumData !== this.props.albumData || prevProps.filterAlbumTitle !== this.props.filterAlbumTitle){
+			console.log('i came here');
 			const albumList = this.fetchAlbums(this.state.startIndex);
 			this.setState({
 				albumList
@@ -65,15 +80,14 @@ export default class Album extends Component {
 	fetchAlbums(startIndex) {
 		let {albumList} = this.state;
 		let albumRow = [];
-		const numberOfAlbumsFetch = 30;
-		const numberOfAlbumsEachRow = 10;
+		const numberOfAlbumsFetch = 105;
+		const numberOfAlbumsEachRow = 7;
 		const endIndex = startIndex + Math.min(numberOfAlbumsFetch, this.state.albumData.length - startIndex);
 		for(let i=startIndex; i<endIndex; i++) {
 			const album = this.state.albumData[i];
 			albumRow.push(
-				<Grow in={true}>
+				<Grow key={album.id} in={true}>
 					<Card 
-						key={album.id}
 						className="album card"
 						onClick={() => this.handleAlbumClick(album)}
 					>
@@ -158,13 +172,10 @@ export default class Album extends Component {
 	}
  
 	render() {
-		console.log('from render');
-		console.log(this.state.albumData);
-		console.log(this.state.albumList);
-		// console.log(this.state.activeAlbum);
-		// console.log(this.state.isAlbumActive);
-		// let test = this.state.isAlbumActive? this.state.activeAlbum : this.state.albumList;
-		// console.log(test);
+		// console.log('from render');
+		// console.log(this.state.albumData);
+		// console.log(this.state.filterAlbumTitle);
+		// console.log(this.state.albumList);
 
 		return (
 			<div id="album-container" onScroll={this.handleScroll}>

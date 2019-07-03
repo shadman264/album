@@ -4,10 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/FilterList';
 import MenuIcon from '@material-ui/icons/Menu';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
 
 import Filter from './Filter/Filter.container';
 

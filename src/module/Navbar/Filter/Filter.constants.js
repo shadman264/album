@@ -1,0 +1,1 @@
+export const FILTER_ALBUMS = 'FILTER_ALBUMS';
