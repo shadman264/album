@@ -1,2 +1,35 @@
-.filter-grid{
+.filter-textfield {
+  input{
+    color: white;
+    border-bottom: 1px solid white;
+  }
+  
+  .MuiInput-underline{
+    &:before {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      content: "\00a0";
+      position: absolute;
+      border-bottom: 1px solid white;
+      pointer-events: none;
+    }
+    &:after {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      content: "";
+      position: absolute;
+      transform: scaleX(0);
+      border-bottom: 1px solid white;
+      pointer-events: none;
+    }
+    &:hover{
+      &:not(.Mui-disabled){
+        &:before{
+          border-bottom: 1px solid black
+        }
+      }
+    }
+  }
 }

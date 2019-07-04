@@ -63,6 +63,7 @@ class AddAlbum extends Component{
                   margin="dense"
                   fullWidth={true}
                   value={this.state.title}
+                  autoFocus={true}
                   onChange={this.handleFieldChange}
                 />
               </Box>

@@ -17,10 +17,10 @@ class Filter extends Component{
   }
   render() {
     return(
-      <div className="filter-grid">
+      <div>
         <Grid container spacing={1} alignItems="flex-end">
           <Grid item>
-            <TextField id="navbar-filter" onChange={this.handleFieldChange} placeholder="Search"/>
+            <TextField id="navbar-filter" onChange={this.handleFieldChange} placeholder="Search" classes={{root: 'filter-textfield'}}/>
             <SearchIcon />
           </Grid>
         </Grid>
