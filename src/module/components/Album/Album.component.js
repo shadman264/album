@@ -33,12 +33,20 @@ export default class Album extends Component {
 	
 	// This method is fetching data after component's initial mount
 	componentDidMount() {
+		console.log('I CAME TO componentDidMount');
 		window.addEventListener('scroll', this.handleScroll);
 		if(this.props.albumData.length === 0)
 			this.props.getAlbumData(ALBUM_DATA_URL);
+		else{
+			const albumList = this.fetchAlbums(this.state.startIndex);
+			this.setState({
+				albumList
+			});
+		}
 	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
+		console.log('I CAME TO getDerivedStateFromProps');
 		if(nextProps.albumData.join("") !== prevState.data.join("")) {
 			console.log('data updated');
 			const filteredAlbumData = nextProps.albumData.filter(album => {
@@ -51,6 +59,7 @@ export default class Album extends Component {
 				startIndex: 0
 			};
 		} else if(nextProps.filterAlbumTitle !== prevState.filterAlbumTitle) {
+			console.log('filter updated');
 			const filteredAlbumData = prevState.data.filter(album => {
 				return album.title.toLowerCase().includes(nextProps.filterAlbumTitle.toLowerCase())
 			});
@@ -61,6 +70,7 @@ export default class Album extends Component {
 				startIndex: 0
 			};
 		}
+		console.log('nothing updatded');
 		return null; 
 	}
 
@@ -183,8 +193,6 @@ export default class Album extends Component {
 	}
  
 	render() {
-		// console.log('from render');
-		// console.log(this.state.data);
 		return (
 			<div>
 				<div id="album-container" onScroll={this.handleScroll}>
