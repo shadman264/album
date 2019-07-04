@@ -34,7 +34,6 @@ class AddAlbum extends Component{
     let newAlbum = {...this.state};
     const newAlbumId = this.props.albumData[this.props.albumData.length - 1].id + 1;
     newAlbum = {...newAlbum, id: newAlbumId}
-    console.log(isNaN(parseInt(newAlbum.albumId)));
     newAlbum.albumId = isNaN(parseInt(newAlbum.albumId)) ? 0 : parseInt(newAlbum.albumId);
     this.props.addAlbum(newAlbum);
     this.props.history.push('/');
