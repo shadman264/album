@@ -17,9 +17,9 @@ class AddAlbum extends Component{
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      albumTitle: '',
-      albumID: '',
-      albumUrl: '',
+      albumId: '',
+      title: '',
+      url: '',
       thumbnailUrl: ''
     }
   }
@@ -31,7 +31,9 @@ class AddAlbum extends Component{
   }
 
   handleSubmit() {
-
+    const newAlbum = this.state;
+    this.props.addAlbum(newAlbum);
+    this.props.history.push('/');
   }
 
 
@@ -52,12 +54,12 @@ class AddAlbum extends Component{
             <Flex w={1} justify="space-evenly">
               <Box w={1} pr={3}>
                 <TextField
-                  name="albumTitle"
+                  name="title"
                   id="standard-name"
                   label="Title"
                   margin="dense"
                   fullWidth={true}
-                  value={this.state.albumTitle}
+                  value={this.state.title}
                   onChange={this.handleFieldChange}
                 />
               </Box>
@@ -65,11 +67,11 @@ class AddAlbum extends Component{
                 <InputMask
                   mask="9999999999"
                   maskChar=" "
-                  value={this.state.albumID}
+                  value={this.state.albumId}
                   onChange={this.handleFieldChange}
                 >
                   {() => <TextField
-                    name="albumID"
+                    name="albumId"
                     id="standard-name"
                     label="Album ID"
                     margin="dense"
@@ -82,12 +84,12 @@ class AddAlbum extends Component{
             <Flex w={1} justify="space-evenly">
               <Box w={1}>
                 <TextField
-                  name="albumUrl"
+                  name="url"
                   id="standard-name"
                   label="URL"
                   margin="dense"
                   fullWidth={true}
-                  value={this.state.albumUrl}
+                  value={this.state.url}
                   onChange={this.handleFieldChange}
                 />
               </Box>
@@ -107,7 +109,7 @@ class AddAlbum extends Component{
             </Flex>
             <Flex pt={3} justify="flex-end">
               <Box justify="center">
-                <Button variant="contained" color="secondary">
+                <Button variant="contained" color="secondary" onClick={this.handleSubmit}>
                   Add
                 </Button>
               </Box>

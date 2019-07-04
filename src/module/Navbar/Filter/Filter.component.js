@@ -17,7 +17,7 @@ class Filter extends Component{
   }
   render() {
     return(
-      <div>
+      <div className="filter-grid">
         <Grid container spacing={1} alignItems="flex-end">
           <Grid item>
             <TextField id="navbar-filter" onChange={this.handleFieldChange} placeholder="Search"/>

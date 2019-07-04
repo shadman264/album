@@ -9,20 +9,27 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grow from '@material-ui/core/Grow';
 
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+
 import {ALBUM_DATA_URL} from './Album.constants';
+
+import axios from 'axios';
 
 export default class Album extends Component {
 	constructor() {
     super();
 		this.handleAlbumClick = this.handleAlbumClick.bind(this);
 		this.handleScroll = this.handleScroll.bind(this);
+		this.handleAddAlbumClick = this.handleAddAlbumClick.bind(this);
 		this.state = {
 			albumData: [],
 			data: [],
 			albumList: [],
 			startIndex: 0,
 			activeAlbum: null,
-			filterAlbumTitle: ''
+			filterAlbumTitle: '',
+			newAlbum: {}
 		}
   }
 	
@@ -34,8 +41,32 @@ export default class Album extends Component {
 
 	static getDerivedStateFromProps(nextProps, prevState) {
 
+		// if(JSON.stringify(nextProps.newAlbum) !== JSON.stringify(prevState.newAlbum)){
+		// 	console.log('added album');
+		// 	// {
+		// 	// 	"albumId": 1,
+		// 	// 	"id": 1,
+		// 	// 	"title": "accusamus beatae ad facilis cum similique qui sunt",
+		// 	// 	"url": "https://via.placeholder.com/600/92c952",
+		// 	// 	"thumbnailUrl": "https://via.placeholder.com/150/92c952"
+		// 	// }
+		// 	// console.log(prevState.data.length);
+		// 	// console.log(prevState.data);
+		// 	// console.log(prevState.data[prevState.data.length - 1]);
+		// 	// const newAlbumId = prevState.data[prevState.data.length - 1].id++;
+		// 	// const newAlbum = {...nextProps.newAlbum, id: newAlbumId}
+		// 	// console.log(newAlbum);
+		// 	// console.log(nextProps.newAlbum);
+		// 	return null;
+		// 	// if (newAlbum.title.toLowerCase().includes(prevState.filterAlbumTitle.toLowerCase())) {
+
+		// 	// }
+		// 	// return {
+
+		// 	// }
+	// }
 		if(nextProps.albumData.join("") !== prevState.data.join("")) {
-			console.log('data changed');
+			console.log('data updated');
 			const filteredAlbumData = nextProps.albumData.filter(album => {
 				return album.title.toLowerCase().includes(prevState.filterAlbumTitle.toLowerCase())
 			});
@@ -55,18 +86,51 @@ export default class Album extends Component {
 				albumList: [],
 				startIndex: 0
 			};
+		} else if(JSON.stringify(nextProps.newAlbum) !== JSON.stringify(prevState.newAlbum)){
+			console.log('added album');
+			// {
+			// 	"albumId": 1,
+			// 	"id": 1,
+			// 	"title": "accusamus beatae ad facilis cum similique qui sunt",
+			// 	"url": "https://via.placeholder.com/600/92c952",
+			// 	"thumbnailUrl": "https://via.placeholder.com/150/92c952"
+			// }
+			const newAlbumId = prevState.data[prevState.data.length - 1].id + 1;
+			const newAlbum = {...nextProps.newAlbum, id: newAlbumId}
+			newAlbum.albumId = parseInt(newAlbum.albumId);
+			// console.log(newAlbum);
+			// console.log(nextProps.newAlbum);
+
+			return {newAlbum};
+
+			// return null;
+			if (newAlbum.title.toLowerCase().includes(prevState.filterAlbumTitle.toLowerCase())) {
+
+			}
+			// return {
+
+			// }
 		}
+
+
 		return null; 
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		if(prevProps.albumData !== this.props.albumData || prevProps.filterAlbumTitle !== this.props.filterAlbumTitle){
-			console.log('i came here');
 			const albumList = this.fetchAlbums(this.state.startIndex);
 			this.setState({
 				albumList
 			});
-	
+		}
+		if(JSON.stringify(prevState.newAlbum) !== JSON.stringify(this.state.newAlbum)) {
+			console.log('album updated');
+			console.log(this.state.newAlbum);
+			axios.post('https://jsonplaceholder.typicode.com/photos', this.state.newAlbum)
+			.then(res => {
+				console.log('posted album successfully');
+				console.log(res);
+			})
 		}
 	}
 
@@ -143,6 +207,10 @@ export default class Album extends Component {
 		return albumList;
 	}
 
+	addAlbum() {
+
+	}
+
 	// This method is fetching more row if user is at the bottom of the page
 	// by handning scrolling scrolling event
 	handleScroll(e) {
@@ -170,12 +238,24 @@ export default class Album extends Component {
 		this.props.getAlbumDetails(album);
 		this.props.history.push("/details")
 	}
+
+	handleAddAlbumClick() {
+		this.props.history.push("/add");
+	}
  
 	render() {
-
+		// console.log('from render');
+		// console.log(this.state.data);
 		return (
-			<div id="album-container" onScroll={this.handleScroll}>
-				{this.state.albumList}
+			<div>
+				<div id="album-container" onScroll={this.handleScroll}>
+					{this.state.albumList}
+				</div>
+				<div className='add-album-button' onClick={this.handleAddAlbumClick}>
+					<Fab size="medium" color="secondary" aria-label="Add">
+						<AddIcon />
+					</Fab>
+				</div>
 		 	</div>
 		);
 	}
