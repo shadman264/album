@@ -14,8 +14,6 @@ import AddIcon from '@material-ui/icons/Add';
 
 import {ALBUM_DATA_URL} from './Album.constants';
 
-import axios from 'axios';
-
 export default class Album extends Component {
 	constructor() {
     super();
