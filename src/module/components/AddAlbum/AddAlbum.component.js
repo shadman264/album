@@ -31,7 +31,10 @@ class AddAlbum extends Component{
   }
 
   handleSubmit() {
-    const newAlbum = this.state;
+    let newAlbum = {...this.state};
+    const newAlbumId = this.props.albumData[this.props.albumData.length - 1].id + 1;
+    newAlbum = {...newAlbum, id: newAlbumId}
+    newAlbum.albumId = parseInt(newAlbum.albumId);
     this.props.addAlbum(newAlbum);
     this.props.history.push('/');
   }

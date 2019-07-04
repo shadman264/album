@@ -31,40 +31,16 @@ export default class Album extends Component {
 			filterAlbumTitle: '',
 			newAlbum: {}
 		}
-  }
+	}
 	
 	// This method is fetching data after component's initial mount
 	componentDidMount() {
 		window.addEventListener('scroll', this.handleScroll);
-		this.props.getAlbumData(ALBUM_DATA_URL);
+		if(this.props.albumData.length === 0)
+			this.props.getAlbumData(ALBUM_DATA_URL);
 	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
-
-		// if(JSON.stringify(nextProps.newAlbum) !== JSON.stringify(prevState.newAlbum)){
-		// 	console.log('added album');
-		// 	// {
-		// 	// 	"albumId": 1,
-		// 	// 	"id": 1,
-		// 	// 	"title": "accusamus beatae ad facilis cum similique qui sunt",
-		// 	// 	"url": "https://via.placeholder.com/600/92c952",
-		// 	// 	"thumbnailUrl": "https://via.placeholder.com/150/92c952"
-		// 	// }
-		// 	// console.log(prevState.data.length);
-		// 	// console.log(prevState.data);
-		// 	// console.log(prevState.data[prevState.data.length - 1]);
-		// 	// const newAlbumId = prevState.data[prevState.data.length - 1].id++;
-		// 	// const newAlbum = {...nextProps.newAlbum, id: newAlbumId}
-		// 	// console.log(newAlbum);
-		// 	// console.log(nextProps.newAlbum);
-		// 	return null;
-		// 	// if (newAlbum.title.toLowerCase().includes(prevState.filterAlbumTitle.toLowerCase())) {
-
-		// 	// }
-		// 	// return {
-
-		// 	// }
-	// }
 		if(nextProps.albumData.join("") !== prevState.data.join("")) {
 			console.log('data updated');
 			const filteredAlbumData = nextProps.albumData.filter(album => {
@@ -86,33 +62,7 @@ export default class Album extends Component {
 				albumList: [],
 				startIndex: 0
 			};
-		} else if(JSON.stringify(nextProps.newAlbum) !== JSON.stringify(prevState.newAlbum)){
-			console.log('added album');
-			// {
-			// 	"albumId": 1,
-			// 	"id": 1,
-			// 	"title": "accusamus beatae ad facilis cum similique qui sunt",
-			// 	"url": "https://via.placeholder.com/600/92c952",
-			// 	"thumbnailUrl": "https://via.placeholder.com/150/92c952"
-			// }
-			const newAlbumId = prevState.data[prevState.data.length - 1].id + 1;
-			const newAlbum = {...nextProps.newAlbum, id: newAlbumId}
-			newAlbum.albumId = parseInt(newAlbum.albumId);
-			// console.log(newAlbum);
-			// console.log(nextProps.newAlbum);
-
-			return {newAlbum};
-
-			// return null;
-			if (newAlbum.title.toLowerCase().includes(prevState.filterAlbumTitle.toLowerCase())) {
-
-			}
-			// return {
-
-			// }
 		}
-
-
 		return null; 
 	}
 
@@ -122,15 +72,6 @@ export default class Album extends Component {
 			this.setState({
 				albumList
 			});
-		}
-		if(JSON.stringify(prevState.newAlbum) !== JSON.stringify(this.state.newAlbum)) {
-			console.log('album updated');
-			console.log(this.state.newAlbum);
-			axios.post('https://jsonplaceholder.typicode.com/photos', this.state.newAlbum)
-			.then(res => {
-				console.log('posted album successfully');
-				console.log(res);
-			})
 		}
 	}
 

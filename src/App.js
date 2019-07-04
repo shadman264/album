@@ -6,11 +6,12 @@ import AlbumDetails from './module/components/AlbumDetails/AlbumDetails.containe
 import AddAlbum from './module/components/AddAlbum/AddAlbum.container';
 
 import {BrowserRouter, Route} from 'react-router-dom';
-
+import { createBrowserHistory } from "history";
 
 function App() {
+  const history = createBrowserHistory()
   return (
-    <BrowserRouter>
+    <BrowserRouter history={history}>
       <div>
         <Navbar/>
         <Route exact path='/' component={Album} />

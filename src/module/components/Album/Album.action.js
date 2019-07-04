@@ -30,3 +30,10 @@ export const getAlbumDetails = album => {
     payload: album
   }
 }
+
+export const addAlbum = newAlbum => {
+  return{
+    type: albumConstants.ADD_ALBUM,
+    payload: newAlbum
+  }
+}
