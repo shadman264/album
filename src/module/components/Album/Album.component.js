@@ -98,8 +98,8 @@ export default class Album extends Component {
 	fetchAlbums(startIndex) {
 		let {albumList} = this.state;
 		let albumRow = [];
-		const numberOfAlbumsFetch = 105;
-		const numberOfAlbumsEachRow = 7;
+		const numberOfAlbumsFetch = 120;
+		const numberOfAlbumsEachRow = 6;
 		const endIndex = startIndex + Math.min(numberOfAlbumsFetch, this.state.albumData.length - startIndex);
 		for(let i=startIndex; i<endIndex; i++) {
 			const album = this.state.albumData[i];
@@ -117,7 +117,7 @@ export default class Album extends Component {
 							/>
 							<CardContent>
 								<Typography gutterBottom variant="h5" component="h2">
-									{`Album ${album.id}`}
+									{`Album ${album.albumId}`}
 								</Typography>
 							</CardContent>
 						</CardActionArea>
@@ -125,11 +125,16 @@ export default class Album extends Component {
 				</Grow>
 			)
 			if((i + 1) % numberOfAlbumsEachRow === 0) {
+				let paddingBottom = 0;
+				if((i + 1) === endIndex) {
+					paddingBottom = 3;
+				}
 				albumList.push(
 					<Flex
 						key={(i + 1) / numberOfAlbumsEachRow}
 						w={1}
 						pt={3}
+						pb={paddingBottom}
 						justify='space-evenly'
 					>
 						{albumRow.map(row => {
@@ -147,6 +152,7 @@ export default class Album extends Component {
 					key={endIndex / numberOfAlbumsEachRow}
 					w={1}
 					pt={2}
+					pb={3}
 					justify='space-evenly'
 				>
 					{albumRow.map(row => {
