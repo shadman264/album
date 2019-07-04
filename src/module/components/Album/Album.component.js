@@ -38,9 +38,19 @@ export default class Album extends Component {
 		if(this.props.albumData.length === 0)
 			this.props.getAlbumData(ALBUM_DATA_URL);
 		else{
-			const albumList = this.fetchAlbums(this.state.startIndex);
-			this.setState({
-				albumList
+			const filteredAlbumData = this.props.albumData.filter(album => {
+				return album.title.toLowerCase().includes(this.props.filterAlbumTitle.toLowerCase())
+			});
+			this.setState({ 
+				albumData: filteredAlbumData,
+				filterAlbumTitle: this.props.filterAlbumTitle,
+				albumList: [],
+				startIndex: 0
+			}, () => {
+				const albumList = this.fetchAlbums(this.state.startIndex);
+				this.setState({
+					albumList
+				});
 			});
 		}
 	}
