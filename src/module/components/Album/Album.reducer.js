@@ -20,8 +20,6 @@ const albumReducer = (state = initialState, action) => {
 				}
 			case albumConstants.ADD_ALBUM:
 				let newState = {...state};
-				// const newAlbumId = newState.data[newState.data.length - 1].id + 1;
-				// const newAlbum = {...action.payload, id: newAlbumId}
 				newState.data = [...newState.data, action.payload];
         return {
           ...newState

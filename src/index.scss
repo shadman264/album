@@ -1,8 +1,8 @@
 @import './module/components/Album/album.style';
 @import './variables';
-@import './module/Navbar/navbar';
+@import './module/header/Navbar/navbar';
 @import './module/components/AddAlbum/addAlbum.style';
-@import './module/Navbar/Filter/filter.style';
+@import './module/header/Filter/filter.style';
 
 body {
   margin: 0;

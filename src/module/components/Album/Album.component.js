@@ -33,7 +33,6 @@ export default class Album extends Component {
 	
 	// This method is fetching data after component's initial mount
 	componentDidMount() {
-		console.log('I CAME TO componentDidMount');
 		window.addEventListener('scroll', this.handleScroll);
 		if(this.props.albumData.length === 0)
 			this.props.getAlbumData(ALBUM_DATA_URL);
@@ -56,9 +55,7 @@ export default class Album extends Component {
 	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
-		console.log('I CAME TO getDerivedStateFromProps');
 		if(nextProps.albumData.join("") !== prevState.data.join("")) {
-			console.log('data updated');
 			const filteredAlbumData = nextProps.albumData.filter(album => {
 				return album.title.toLowerCase().includes(prevState.filterAlbumTitle.toLowerCase())
 			});
@@ -69,7 +66,6 @@ export default class Album extends Component {
 				startIndex: 0
 			};
 		} else if(nextProps.filterAlbumTitle !== prevState.filterAlbumTitle) {
-			console.log('filter updated');
 			const filteredAlbumData = prevState.data.filter(album => {
 				return album.title.toLowerCase().includes(nextProps.filterAlbumTitle.toLowerCase())
 			});
@@ -80,7 +76,6 @@ export default class Album extends Component {
 				startIndex: 0
 			};
 		}
-		console.log('nothing updatded');
 		return null; 
 	}
 
@@ -209,7 +204,7 @@ export default class Album extends Component {
 					{this.state.albumList}
 				</div>
 				<div className='add-album-button' onClick={this.handleAddAlbumClick}>
-					<Fab size="medium" color="secondary" aria-label="Add">
+					<Fab size="large" color="secondary" aria-label="Add">
 						<AddIcon />
 					</Fab>
 				</div>
